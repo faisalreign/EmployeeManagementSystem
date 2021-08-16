@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EmpLoyeeManaGementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="batch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Batch_Id" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Eregistation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="CNIC" Type="varchar" MaxLength="50" />
+          <Property Name="Batch_Id" Type="int" />
+          <Property Name="Salary_Id" Type="int" />
+          <Property Name="TelNo" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="District" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SalaryD">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="50" />
+          <Property Name="WorkingDay" Type="varchar" MaxLength="50" />
+          <Property Name="Leaves" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TotalSalary" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Eregistation_batch">
+          <End Role="batch" Type="Self.batch" Multiplicity="0..1" />
+          <End Role="Eregistation" Type="Self.Eregistation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Eregistation">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Eregistation_SalaryD">
+          <End Role="SalaryD" Type="Self.SalaryD" Multiplicity="0..1" />
+          <End Role="Eregistation" Type="Self.Eregistation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaryD">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Eregistation">
+              <PropertyRef Name="Salary_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmpLoyeeManaGementModelStoreContainer">
+          <EntitySet Name="batch" EntityType="Self.batch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Eregistation" EntityType="Self.Eregistation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalaryD" EntityType="Self.SalaryD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Eregistation_batch" Association="Self.FK_Eregistation_batch">
+            <End Role="batch" EntitySet="batch" />
+            <End Role="Eregistation" EntitySet="Eregistation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Eregistation_SalaryD" Association="Self.FK_Eregistation_SalaryD">
+            <End Role="SalaryD" EntitySet="SalaryD" />
+            <End Role="Eregistation" EntitySet="Eregistation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmpLoyeeManaGementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="batch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Batch_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Eregistations" Relationship="Self.FK_Eregistation_batch" FromRole="batch" ToRole="Eregistation" />
+        </EntityType>
+        <EntityType Name="Eregistation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CNIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Batch_Id" Type="Int32" />
+          <Property Name="Salary_Id" Type="Int32" />
+          <Property Name="TelNo" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="batch" Relationship="Self.FK_Eregistation_batch" FromRole="Eregistation" ToRole="batch" />
+          <NavigationProperty Name="SalaryD" Relationship="Self.FK_Eregistation_SalaryD" FromRole="Eregistation" ToRole="SalaryD" />
+        </EntityType>
+        <EntityType Name="SalaryD">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkingDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Leaves" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalSalary" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Eregistations" Relationship="Self.FK_Eregistation_SalaryD" FromRole="SalaryD" ToRole="Eregistation" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Eregistation_batch">
+          <End Role="batch" Type="Self.batch" Multiplicity="0..1" />
+          <End Role="Eregistation" Type="Self.Eregistation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Eregistation">
+              <PropertyRef Name="Batch_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Eregistation_SalaryD">
+          <End Role="SalaryD" Type="Self.SalaryD" Multiplicity="0..1" />
+          <End Role="Eregistation" Type="Self.Eregistation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalaryD">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Eregistation">
+              <PropertyRef Name="Salary_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmpLoyeeManaGementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="batches" EntityType="Self.batch" />
+          <EntitySet Name="Eregistations" EntityType="Self.Eregistation" />
+          <EntitySet Name="SalaryDs" EntityType="Self.SalaryD" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_Eregistation_batch" Association="Self.FK_Eregistation_batch">
+            <End Role="batch" EntitySet="batches" />
+            <End Role="Eregistation" EntitySet="Eregistations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Eregistation_SalaryD" Association="Self.FK_Eregistation_SalaryD">
+            <End Role="SalaryD" EntitySet="SalaryDs" />
+            <End Role="Eregistation" EntitySet="Eregistations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmpLoyeeManaGementModelStoreContainer" CdmEntityContainer="EmpLoyeeManaGementEntities">
+          <EntitySetMapping Name="batches">
+            <EntityTypeMapping TypeName="EmpLoyeeManaGementModel.batch">
+              <MappingFragment StoreEntitySet="batch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eregistations">
+            <EntityTypeMapping TypeName="EmpLoyeeManaGementModel.Eregistation">
+              <MappingFragment StoreEntitySet="Eregistation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+                <ScalarProperty Name="Salary_Id" ColumnName="Salary_Id" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalaryDs">
+            <EntityTypeMapping TypeName="EmpLoyeeManaGementModel.SalaryD">
+              <MappingFragment StoreEntitySet="SalaryD">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="WorkingDay" ColumnName="WorkingDay" />
+                <ScalarProperty Name="Leaves" ColumnName="Leaves" />
+                <ScalarProperty Name="TotalSalary" ColumnName="TotalSalary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="EmpLoyeeManaGementModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
